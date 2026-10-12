@@ -1,0 +1,16 @@
+DELETE FROM approvals WHERE id IN (
+    '66666666-6666-6666-6666-666666666601',
+    '66666666-6666-6666-6666-666666666602'
+);
+DELETE FROM access_requests WHERE id IN (
+    '55555555-5555-5555-5555-555555555501',
+    '55555555-5555-5555-5555-555555555502'
+);
+DELETE FROM tickets WHERE ticket_no IN ('OPS-DEMO-1001', 'OPS-DEMO-1002');
+
+UPDATE users
+SET
+    name = 'Demo Employee',
+    department = 'Engineering',
+    job_role = 'Backend Developer'
+WHERE id = '22222222-2222-2222-2222-222222222201';
