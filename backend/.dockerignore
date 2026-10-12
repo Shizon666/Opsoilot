@@ -1,0 +1,12 @@
+# Binaries / local build output
+bin/
+tmp/
+*.exe
+*.test
+*.out
+coverage.out
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
