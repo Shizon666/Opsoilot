@@ -1,0 +1,82 @@
+# OpsPilot — Docker Compose (Phase 11.1: postgres + backend + agent)
+# nginx / frontend / milvus are deferred.
+# Agent Checkpoint DB: opspilot_agent (isolated from Go business DB opspilot).
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-opspilot}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-opspilot}
+      POSTGRES_DB: ${POSTGRES_DB:-opspilot}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-opspilot} -d ${POSTGRES_DB:-opspilot}"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+    networks:
+      - opspilot
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    environment:
+      BACKEND_HOST: ${BACKEND_HOST:-0.0.0.0}
+      BACKEND_PORT: ${BACKEND_PORT:-8080}
+      DATABASE_URL: ${DATABASE_URL:-postgres://opspilot:opspilot@postgres:5432/opspilot?sslmode=disable}
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-local-dev}
+      JWT_EXPIRE_HOURS: ${JWT_EXPIRE_HOURS:-24}
+      MIGRATIONS_DIR: /migrations
+    volumes:
+      - ./migrations:/migrations:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - opspilot
+
+  agent:
+    build:
+      context: ./agent
+    ports:
+      - "${AGENT_PORT:-8000}:8000"
+    environment:
+      AGENT_HOST: ${AGENT_HOST:-0.0.0.0}
+      AGENT_PORT: ${AGENT_PORT:-8000}
+      BUSINESS_API_BASE_URL: ${BUSINESS_API_BASE_URL:-http://backend:8080}
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-local-dev}
+      KNOWLEDGE_RUNBOOK_DIR: ${KNOWLEDGE_RUNBOOK_DIR:-/app/knowledge/runbooks}
+      KNOWLEDGE_INDEX_DIR: ${KNOWLEDGE_INDEX_DIR:-/app/data/knowledge_index}
+      HF_HOME: ${HF_HOME:-/app/data/hf_cache}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-flash}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      # Phase 11.1 — Agent Checkpoint DB (not Go business DB)
+      CHECKPOINT_BACKEND: ${CHECKPOINT_BACKEND:-postgres}
+      CHECKPOINT_DATABASE_URL: ${CHECKPOINT_DATABASE_URL:-postgres://opspilot:opspilot@postgres:5432/opspilot_agent?sslmode=disable}
+    volumes:
+      - ./agent/knowledge:/app/knowledge:ro
+      - ./agent/data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    networks:
+      - opspilot
+
+networks:
+  opspilot:
+    driver: bridge
+
+volumes:
+  postgres_data:

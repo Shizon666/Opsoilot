@@ -1,0 +1,63 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Frontend (Node.js)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# Backend (Go)
+backend/bin/
+backend/tmp/
+backend/vendor/
+*.exe
+*.test
+*.out
+coverage.out
+
+# Knowledge pipeline intermediates (C-3)
+knowledge/ops/processed/
+
+# Agent (Python)
+agent/.venv/
+agent/venv/
+agent/data/knowledge_index/
+agent/data/hf_cache/
+agent/__pycache__/
+agent/**/__pycache__/
+agent/**/*.py[cod]
+agent/.pytest_cache/
+agent/.mypy_cache/
+agent/.ruff_cache/
+*.egg-info/
+.Python
+
+# Tests / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+
+# Docker / local data volumes (if bind-mounted)
+data/postgres/
+data/milvus/
+tmp/

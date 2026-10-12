@@ -1,0 +1,32 @@
+# Optional Milvus standalone for Phase C-3.3 (host CLI: python -m app.rag.index).
+# Usage: docker compose -f docker-compose.milvus.yml up -d
+# Isolated project name so it does not attach to the main OpsPilot compose.
+
+name: opspilot-milvus
+
+services:
+  milvus:
+    container_name: opspilot-milvus
+    image: milvusdb/milvus:v3.0.0
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_USE_EMBED: "true"
+      ETCD_DATA: /var/lib/milvus/etcd
+      COMMON_STORAGETYPE: local
+      DEPLOY_MODE: STANDALONE
+    volumes:
+      - milvus_data:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 15s
+      start_period: 90s
+      timeout: 20s
+      retries: 12
+
+volumes:
+  milvus_data:
