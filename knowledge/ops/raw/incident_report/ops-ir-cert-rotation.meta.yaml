@@ -1,0 +1,13 @@
+doc_id: OPS-IR-CERT-ROTATION
+title: 证书轮转遗漏导致 TLS 失败复盘
+category: INCIDENT_REPORT
+source_type: pdf
+service: PLATFORM
+department: 信息安全
+severity: CRITICAL
+created_at: 2026-02-27
+visibility: INTERNAL
+status: active
+version: 1.0.0
+source_path: raw/incident_report/ops-ir-cert-rotation.pdf
+canonical: true

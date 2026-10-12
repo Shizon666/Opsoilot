@@ -1,0 +1,13 @@
+doc_id: OPS-OP-CHANGE-ROLLBACK
+title: 变更与回滚检查单
+category: OPERATION_PROCESS
+source_type: docx
+service: PLATFORM
+department: 平台工程
+severity: MEDIUM
+created_at: 2026-10-03
+visibility: INTERNAL
+status: active
+version: 1.0.0
+source_path: raw/operation_process/ops-op-change-rollback.docx
+canonical: true

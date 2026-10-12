@@ -1,0 +1,705 @@
+# V1 知识资产机器可读清单。真源说明见 README.md。本文件不是 ingestion 脚本。
+version: 1
+root: knowledge/ops/raw
+v1_ingest_note: 仅 status=active 且 v1_ingest=true 的条目预留给后续 ingest；本批不执行 ingest。
+documents:
+  - doc_id: OPS-RB-CHECKOUT-5XX
+    title: Checkout API 5xx 排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-checkout-5xx.md
+    service: CHECKOUT_API
+    department: 运维部
+    severity: HIGH
+    visibility: PUBLIC
+    status: active
+    version: 1.1.1
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-AUTH-FAIL
+    title: Auth Service 登录失败与会话异常排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-auth-fail.md
+    service: AUTH_SERVICE
+    department: 运维部
+    severity: HIGH
+    visibility: PUBLIC
+    status: active
+    version: 1.1.1
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-WORKER-BACKLOG
+    title: Order Worker 队列积压排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-worker-backlog.md
+    service: ORDER_WORKER
+    department: 运维部
+    severity: HIGH
+    visibility: PUBLIC
+    status: active
+    version: 1.1.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-PAY-TIMEOUT
+    title: 支付通道超时与切备手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-pay-timeout.md
+    service: CHECKOUT_API
+    department: 运维部
+    severity: HIGH
+    visibility: PUBLIC
+    status: active
+    version: 1.1.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-DEP-TIMEOUT
+    title: 上游依赖超时与连接池排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-dep-timeout.md
+    service: MULTI
+    department: 运维部
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-RELEASE-ROLLBACK
+    title: 发布后回滚手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-release-rollback.md
+    service: PLATFORM
+    department: 平台工程
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-CACHE-STAMP
+    title: 缓存击穿与热点 key 排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-cache-stamp.md
+    service: PLATFORM
+    department: 平台工程
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-DB-SLOW
+    title: 慢查询导致接口超时排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-db-slow.md
+    service: PLATFORM
+    department: 平台工程
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-MQ-LAG
+    title: 消息积压与死信处理手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-mq-lag.md
+    service: ORDER_WORKER
+    department: 运维部
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.1.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-INGRESS-5XX
+    title: 网关与入口 5xx 排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-ingress-5xx.md
+    service: PLATFORM
+    department: 平台工程
+    severity: HIGH
+    visibility: PUBLIC
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-CERT-EXPIRY
+    title: 证书过期与 TLS 失败排查手册
+    category: RUNBOOK
+    source_type: markdown
+    source_path: raw/runbook/ops-rb-cert-expiry.md
+    service: PLATFORM
+    department: 信息安全
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-RB-ESCALATE
+    title: 值班升级备忘
+    category: RUNBOOK
+    source_type: txt
+    source_path: raw/runbook/ops-rb-escalate.txt
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SM-CHECKOUT
+    title: Checkout API 服务说明
+    category: SERVICE_MANUAL
+    source_type: markdown
+    source_path: raw/service_manual/ops-sm-checkout.md
+    service: CHECKOUT_API
+    department: 运维部
+    severity: INFO
+    visibility: PUBLIC
+    status: active
+    version: 1.1.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SM-AUTH
+    title: Auth Service 服务说明
+    category: SERVICE_MANUAL
+    source_type: markdown
+    source_path: raw/service_manual/ops-sm-auth.md
+    service: AUTH_SERVICE
+    department: 运维部
+    severity: INFO
+    visibility: PUBLIC
+    status: active
+    version: 1.1.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SM-ORDER-WORKER
+    title: Order Worker 服务说明
+    category: SERVICE_MANUAL
+    source_type: markdown
+    source_path: raw/service_manual/ops-sm-order-worker.md
+    service: ORDER_WORKER
+    department: 运维部
+    severity: INFO
+    visibility: PUBLIC
+    status: active
+    version: 1.1.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SM-INGRESS
+    title: 平台入口与网关说明
+    category: SERVICE_MANUAL
+    source_type: markdown
+    source_path: raw/service_manual/ops-sm-ingress.md
+    service: PLATFORM
+    department: 平台工程
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SM-OBSERVABILITY
+    title: 可观测性约定
+    category: SERVICE_MANUAL
+    source_type: markdown
+    source_path: raw/service_manual/ops-sm-observability.md
+    service: PLATFORM
+    department: 平台工程
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SM-SERVICE-CATALOG
+    title: 运维视角服务目录
+    category: SERVICE_MANUAL
+    source_type: markdown
+    source_path: raw/service_manual/ops-sm-service-catalog.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: PUBLIC
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-IR-CHECKOUT-GW-TIMEOUT
+    title: 支付网关超时导致 Checkout 大面积 502 复盘
+    category: INCIDENT_REPORT
+    source_type: pdf
+    source_path: raw/incident_report/ops-ir-checkout-gw-timeout.pdf
+    service: CHECKOUT_API
+    department: 运维部
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-06-18
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-IR-AUTH-CONFIG
+    title: 配置错误导致 Auth 全员登录失败复盘
+    category: INCIDENT_REPORT
+    source_type: markdown
+    source_path: raw/incident_report/ops-ir-auth-config.md
+    service: AUTH_SERVICE
+    department: 运维部
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-04-09
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-IR-WORKER-CONCURRENCY
+    title: Worker 并发参数误改导致积压复盘
+    category: INCIDENT_REPORT
+    source_type: markdown
+    source_path: raw/incident_report/ops-ir-worker-concurrency.md
+    service: ORDER_WORKER
+    department: 运维部
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-05-22
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-IR-OFFWINDOW-RELEASE
+    title: 变更窗口外发布引发回滚复盘
+    category: INCIDENT_REPORT
+    source_type: markdown
+    source_path: raw/incident_report/ops-ir-offwindow-release.md
+    service: PLATFORM
+    department: 平台工程
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-03-11
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-IR-CACHE-WARMUP
+    title: 缓存预热不足导致早高峰击穿复盘
+    category: INCIDENT_REPORT
+    source_type: markdown
+    source_path: raw/incident_report/ops-ir-cache-warmup.md
+    service: PLATFORM
+    department: 平台工程
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-07-02
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-IR-CERT-ROTATION
+    title: 证书轮转遗漏导致 TLS 失败复盘
+    category: INCIDENT_REPORT
+    source_type: pdf
+    source_path: raw/incident_report/ops-ir-cert-rotation.pdf
+    service: PLATFORM
+    department: 信息安全
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-02-27
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-TICKET-ANALYSIS
+    title: 故障工单 analysis 撰写规范
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-ticket-analysis.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-INCIDENT-MINSET
+    title: 报障信息最低集
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-incident-minset.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: PUBLIC
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-DUTY-P-LEVEL
+    title: 值班升级与 P 级定义
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-duty-p-level.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-CHANGE-ROLLBACK
+    title: 变更与回滚检查单
+    category: OPERATION_PROCESS
+    source_type: docx
+    source_path: raw/operation_process/ops-op-change-rollback.docx
+    service: PLATFORM
+    department: 平台工程
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-COMMS-TONE
+    title: 故障沟通口径
+    category: OPERATION_PROCESS
+    source_type: docx
+    source_path: raw/operation_process/ops-op-comms-tone.docx
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SG-PII-TICKET
+    title: 工单与 Chat 中的敏感信息处理
+    category: SECURITY_GUIDELINE
+    source_type: markdown
+    source_path: raw/security_guideline/ops-sg-pii-ticket.md
+    service: PLATFORM
+    department: 信息安全
+    severity: HIGH
+    visibility: PUBLIC
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SG-LOG-EXPORT
+    title: 生产日志查询与导出边界
+    category: SECURITY_GUIDELINE
+    source_type: markdown
+    source_path: raw/security_guideline/ops-sg-log-export.md
+    service: PLATFORM
+    department: 信息安全
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SG-SECRETS
+    title: 密钥、证书与连接串禁止事项
+    category: SECURITY_GUIDELINE
+    source_type: pdf
+    source_path: raw/security_guideline/ops-sg-secrets.pdf
+    service: PLATFORM
+    department: 信息安全
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SG-HIGH-RISK
+    title: 高危操作必须人工
+    category: SECURITY_GUIDELINE
+    source_type: docx
+    source_path: raw/security_guideline/ops-sg-high-risk.docx
+    service: PLATFORM
+    department: 信息安全
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-03
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-IMPACT-ESCALATE
+    title: 故障影响范围与升级判定
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-impact-escalate.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-09
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-EVIDENCE-LEDGER
+    title: 故障证据收集与缺口记录
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-evidence-ledger.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-09
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-TICKET-LIFECYCLE
+    title: 故障工单创建更新与状态流转
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-ticket-lifecycle.md
+    service: PLATFORM
+    department: 运维部
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-09
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-RECOVERY-VERIFY
+    title: 故障恢复验证与关闭条件
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-recovery-verify.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-09
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-SG-AGENT-TOOL-BOUNDARY
+    title: Agent 工具能力与高风险操作边界
+    category: SECURITY_GUIDELINE
+    source_type: markdown
+    source_path: raw/security_guideline/ops-sg-agent-tool-boundary.md
+    service: PLATFORM
+    department: 信息安全
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-09
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-CHANGE-PRECHECK
+    title: 发布前检查与变更风险评估
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-change-precheck.md
+    service: PLATFORM
+    department: 平台工程
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-ROLLBACK-GATE
+    title: 发布失败后的回滚决策与验证
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-rollback-gate.md
+    service: PLATFORM
+    department: 平台工程
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-TLS-VS-APP
+    title: 证书 TLS 异常与应用故障鉴别
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-tls-vs-app.md
+    service: PLATFORM
+    department: 信息安全
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-MULTI-SERVICE-TRIAGE
+    title: 多服务同时异常的上下游影响判断
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-multi-service-triage.md
+    service: MULTI
+    department: 运维部
+    severity: HIGH
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-DUTY-HANDOFF
+    title: 故障值班交接与未完成事项记录
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-duty-handoff.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-CROSS-TEAM-HANDOFF
+    title: 跨团队升级与信息交接
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-cross-team-handoff.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-POSTMORTEM-FOLLOWUP
+    title: 故障复盘与纠正措施跟踪
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-postmortem-followup.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-DUPLICATE-TICKET
+    title: 重复工单识别与关联处理
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-duplicate-ticket.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-REEVAL-AFTER-CLARIFY
+    title: 用户补充信息后的重新评估
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-reeval-after-clarify.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-DIAGNOSIS-STOP
+    title: 证据不足时的诊断停止条件
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-diagnosis-stop.md
+    service: PLATFORM
+    department: 运维部
+    severity: MEDIUM
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-HIGH-RISK-PRECHECK
+    title: 高风险操作前检查与授权确认
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-high-risk-precheck.md
+    service: PLATFORM
+    department: 信息安全
+    severity: CRITICAL
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true
+  - doc_id: OPS-OP-KB-CONFLICT
+    title: 知识冲突过期与选用规则
+    category: OPERATION_PROCESS
+    source_type: markdown
+    source_path: raw/operation_process/ops-op-kb-conflict.md
+    service: PLATFORM
+    department: 运维部
+    severity: INFO
+    visibility: INTERNAL
+    status: active
+    version: 1.0.0
+    created_at: 2026-10-10
+    canonical: true
+    v1_ingest: true

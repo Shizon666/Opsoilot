@@ -1,0 +1,43 @@
+doc_id: XXY-IT-ACC-MX-001
+title: 权限与审批关系矩阵
+version: 0.1.0-outline
+status: outline
+company: 北京小小医信息科技有限公司
+owner: 信息技术部
+category: access
+visibility: INTERNAL
+related_intent:
+  - permission
+  - human
+rag:
+  employee: false
+  support: false
+  primary: false
+audience:
+  - it_support
+  - admin
+asset_file: 权限与审批关系矩阵.xlsx
+related_api:
+  - POST /permissions
+  - POST /permissions/:id/approve
+  - POST /permissions/:id/reject
+sheets:
+  - name: matrix
+    columns:
+      - resource_type
+      - permission_level
+      - typical_roles
+      - auto_eligible
+      - requires_human
+      - approver_role
+      - evidence_required
+      - notes
+  - name: examples
+    purpose: resource_name 命名示例（待填）
+  - name: _meta
+    purpose: 嵌入式元数据键值
+notes:
+  - Support 人工审批时查阅
+  - 不进入 Employee RAG
+  - 非 RAG 主数据；规则真源为 制度规范 + 权限管理 下 Markdown 指南
+updated: 2026-10-01

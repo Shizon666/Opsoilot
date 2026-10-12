@@ -1,0 +1,13 @@
+doc_id: OPS-IR-CHECKOUT-GW-TIMEOUT
+title: 支付网关超时导致 Checkout 大面积 502 复盘
+category: INCIDENT_REPORT
+source_type: pdf
+service: CHECKOUT_API
+department: 运维部
+severity: HIGH
+created_at: 2026-06-18
+visibility: INTERNAL
+status: active
+version: 1.0.0
+source_path: raw/incident_report/ops-ir-checkout-gw-timeout.pdf
+canonical: true
