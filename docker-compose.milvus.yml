@@ -1,6 +1,9 @@
-# Optional Milvus standalone for Phase C-3.3 (host CLI: python -m app.rag.index).
-# Usage: docker compose -f docker-compose.milvus.yml up -d
-# Isolated project name so it does not attach to the main OpsPilot compose.
+# DEPRECATED — Milvus is now part of the main stack.
+# Prefer one-shot:
+#   docker compose up -d --build
+#
+# This file is kept only for old scripts that still pass -f docker-compose.milvus.yml.
+# Do not run it together with the main compose (same container name / ports).
 
 name: opspilot-milvus
 

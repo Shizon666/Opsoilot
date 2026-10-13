@@ -1,6 +1,8 @@
-# OpsPilot — Docker Compose (Phase 11.1: postgres + backend + agent)
-# nginx / frontend / milvus are deferred.
+# OpsPilot — Docker Compose (one-shot local stack)
+# Usage: docker compose up -d --build
+# Services: postgres + backend + milvus + agent
 # Agent Checkpoint DB: opspilot_agent (isolated from Go business DB opspilot).
+# Host-side RAG CLI (load/chunk/index) still uses MILVUS_URI=http://127.0.0.1:19530.
 
 services:
   postgres:
@@ -42,6 +44,31 @@ services:
     networks:
       - opspilot
 
+  milvus:
+    image: milvusdb/milvus:v3.0.0
+    container_name: opspilot-milvus
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_USE_EMBED: "true"
+      ETCD_DATA: /var/lib/milvus/etcd
+      COMMON_STORAGETYPE: local
+      DEPLOY_MODE: STANDALONE
+    volumes:
+      - milvus_data:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 15s
+      start_period: 90s
+      timeout: 20s
+      retries: 12
+    networks:
+      - opspilot
+
   agent:
     build:
       context: ./agent
@@ -60,17 +87,28 @@ services:
       LLM_MODEL: ${LLM_MODEL:-deepseek-flash}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
-      # Phase 11.1 — Agent Checkpoint DB (not Go business DB)
+      # Checkpoint DB (not Go business DB)
       CHECKPOINT_BACKEND: ${CHECKPOINT_BACKEND:-postgres}
       CHECKPOINT_DATABASE_URL: ${CHECKPOINT_DATABASE_URL:-postgres://opspilot:opspilot@postgres:5432/opspilot_agent?sslmode=disable}
+      # RAG — inside compose network use service DNS (override host .env 127.0.0.1)
+      SILICONFLOW_BASE_URL: ${SILICONFLOW_BASE_URL:-https://api.siliconflow.cn/v1}
+      SILICONFLOW_API_KEY: ${SILICONFLOW_API_KEY:-}
+      EMBED_MODEL_NAME: ${EMBED_MODEL_NAME:-BAAI/bge-m3}
+      EMBED_DIM: ${EMBED_DIM:-1024}
+      MILVUS_URI: http://milvus:19530
+      MILVUS_COLLECTION: ${MILVUS_COLLECTION:-knowledge_docs}
     volumes:
       - ./agent/knowledge:/app/knowledge:ro
       - ./agent/data:/app/data
+      # Host RAG CLI paths: repo_root()/knowledge/ops → /knowledge/ops inside image layout
+      - ./knowledge:/knowledge
     depends_on:
       postgres:
         condition: service_healthy
       backend:
         condition: service_started
+      milvus:
+        condition: service_healthy
     networks:
       - opspilot
 
@@ -80,3 +118,4 @@ networks:
 
 volumes:
   postgres_data:
+  milvus_data:
