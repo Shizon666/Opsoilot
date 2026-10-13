@@ -1,6 +1,7 @@
-import { Layout, Menu, Button, Typography, Space, theme } from 'antd'
+import { Layout, Menu, Button, Typography, Space, Tag, theme } from 'antd'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { isSupportRole, useAuthStore } from '../store/authStore'
+import { roleLabel } from '../utils/roleLabels'
 
 const { Header, Content } = Layout
 
@@ -24,6 +25,7 @@ export function AppLayout() {
     return ''
   })()
 
+  // 菜单按角色分流：员工走 Agent/自助工单；IT 支持与管理员走工作台
   const menuItems = support
     ? [
         { key: 'support', label: <Link to="/support">工单工作台</Link> },
@@ -63,9 +65,8 @@ export function AppLayout() {
           style={{ flex: 1, minWidth: 0, border: 'none' }}
         />
         <Space>
-          <Typography.Text type="secondary">
-            {user?.name}（{user?.role}）
-          </Typography.Text>
+          <Typography.Text type="secondary">{user?.name}</Typography.Text>
+          <Tag color={support ? 'blue' : 'default'}>{roleLabel(user?.role)}</Tag>
           <Button onClick={onLogout}>退出</Button>
         </Space>
       </Header>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Space, Table, Tag, Typography, message } from 'antd'
+import { Alert, Button, Space, Table, Tag, Typography, message } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { Link, useNavigate } from 'react-router-dom'
 import { listTickets } from '../api/tickets'
@@ -44,8 +44,13 @@ export function MyTicketsPage() {
     {
       title: '状态',
       dataIndex: 'status',
-      width: 120,
-      render: (v: string) => <Tag color={statusColor(v)}>{statusLabel(v)}</Tag>,
+      width: 140,
+      render: (v: string) => (
+        <Space size={4}>
+          <Tag color={statusColor(v)}>{statusLabel(v)}</Tag>
+          {v === 'waiting_user' ? <Tag color="orange">待你处理</Tag> : null}
+        </Space>
+      ),
     },
     {
       title: '优先级',
@@ -61,6 +66,8 @@ export function MyTicketsPage() {
     },
   ]
 
+  const waitingCount = items.filter((t) => t.status === 'waiting_user').length
+
   return (
     <div>
       <Space style={{ width: '100%', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -71,6 +78,15 @@ export function MyTicketsPage() {
           创建工单
         </Button>
       </Space>
+      {waitingCount > 0 ? (
+        <Alert
+          type="warning"
+          showIcon
+          style={{ marginBottom: 16 }}
+          message={`有 ${waitingCount} 张工单等待你处理`}
+          description="请打开对应工单，按支持说明补充信息后提交。"
+        />
+      ) : null}
       <Table
         rowKey="id"
         loading={loading}

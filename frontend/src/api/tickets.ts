@@ -3,6 +3,7 @@ import type {
   ApiEnvelope,
   CreateTicketBody,
   CreateTicketResult,
+  PatchTicketBody,
   PatchTicketResult,
   Ticket,
   TicketListData,
@@ -28,10 +29,18 @@ export async function getTicket(id: string): Promise<Ticket> {
   return unwrapData(res.data)
 }
 
+export async function patchTicket(
+  id: string,
+  body: PatchTicketBody,
+): Promise<PatchTicketResult> {
+  const res = await apiClient.patch<ApiEnvelope<PatchTicketResult>>(`/tickets/${id}`, body)
+  return unwrapData(res.data)
+}
+
 export async function patchTicketStatus(
   id: string,
   status: TicketStatus,
+  extra?: Omit<PatchTicketBody, 'status'>,
 ): Promise<PatchTicketResult> {
-  const res = await apiClient.patch<ApiEnvelope<PatchTicketResult>>(`/tickets/${id}`, { status })
-  return unwrapData(res.data)
+  return patchTicket(id, { ...extra, status })
 }

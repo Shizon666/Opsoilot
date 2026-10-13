@@ -45,8 +45,20 @@ export interface Ticket {
   creator_id: string
   assignee_id?: string | null
   service_id: string
+  /** Support note when waiting on user (or general analysis summary). */
+  analysis?: string | null
   created_at: string
   updated_at: string
+}
+
+export interface PatchTicketBody {
+  title?: string
+  description?: string
+  priority?: TicketPriority
+  status?: TicketStatus
+  assignee_id?: string
+  analysis?: string
+  resolution?: string
 }
 
 export interface TicketListData {
@@ -88,6 +100,8 @@ export interface CreateTicketBody {
   title: string
   description: string
   priority: TicketPriority
+  /** Required ACTIVE service UUID (Go Create rejects missing / inactive). */
+  service_id: string
 }
 
 /** POST /agent/chat — aligns with agent/app/main.py + docs/API.md §14.1 */
