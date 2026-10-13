@@ -254,7 +254,9 @@ func (s *TicketService) Patch(userID, role, ticketID, requestID string, in Patch
 		if ticket.RequesterID != userID {
 			return nil, apperr.ErrForbidden
 		}
-		if in.Status != nil || in.AssigneeID != nil || in.Resolution != nil {
+		// Employee may only update title/description/priority, and may resume
+		// WAITING_USER → IN_PROGRESS after supplementing. analysis/resolution/assignee are Support-only.
+		if in.AssigneeID != nil || in.Resolution != nil || in.Analysis != nil {
 			return nil, apperr.ErrForbidden
 		}
 	}
@@ -286,15 +288,28 @@ func (s *TicketService) Patch(userID, role, ticketID, requestID string, in Patch
 
 	newStatus := ticket.Status
 	if in.Status != nil {
-		if !support {
-			return nil, apperr.ErrForbidden
-		}
 		target, ok := normalizeTicketStatus(*in.Status)
 		if !ok {
 			return nil, apperr.ErrInvalidRequest
 		}
+		if !support {
+			// Requester: only resume from waiting_user after providing more info.
+			if ticket.Status != model.TicketStatusWaitingUser || target != model.TicketStatusInProgress {
+				return nil, apperr.ErrForbidden
+			}
+		}
 		if !canTransition(ticket.Status, target) {
 			return nil, apperr.ErrConflict
+		}
+		// Support must leave a note in analysis when asking the user to act.
+		if support && target == model.TicketStatusWaitingUser {
+			nextAnalysis := ticket.Analysis
+			if in.Analysis != nil {
+				nextAnalysis = optionalTrimmedText(in.Analysis)
+			}
+			if nextAnalysis == nil {
+				return nil, apperr.ErrInvalidRequest
+			}
 		}
 		fields["status"] = target
 		newStatus = target
@@ -331,6 +346,9 @@ func (s *TicketService) Patch(userID, role, ticketID, requestID string, in Patch
 	}
 
 	if in.Analysis != nil {
+		if !support {
+			return nil, apperr.ErrForbidden
+		}
 		if v := optionalTrimmedText(in.Analysis); v == nil {
 			fields["analysis"] = nil
 		} else {
