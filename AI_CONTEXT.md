@@ -95,12 +95,12 @@ Permission / Onboarding / 知识后台 = **冻结或延期**，不是 Hardening 
 
 | ID | 主题 | 说明 | 归类 |
 |---|---|---|---|
-| KL-01 | `ticket_comments` 未实现 | **无** `ticket_comments` migration / Model / HTTP / 前端时间线。无法记录 Support 备注与 Employee 回复。 | **未来增强：Ticket Collaboration** |
-| KL-02 | `WAITING_USER` 完整反馈闭环延期 | 状态机与 Support UI 已含 `WAITING_USER`，但无评论能力时 Employee 看不到要补充什么、无法回复；`WAITING_USER → IN_PROGRESS` 仅 Support 可推进。主演示路径（含 `demo_phase7.ps1`）**避开**该支路。 | **未来增强**（非当前缺陷） |
+| KL-01 | `ticket_comments` 未实现 | **无** `ticket_comments` migration / Model / HTTP / 前端时间线。多轮评论仍未建表；过程协作先复用工单字段。 | **未来增强：Ticket Collaboration** |
+| KL-02 | `WAITING_USER` 最小闭环 | **已落地（最小方案）**：Support「等待用户」必填 `analysis`；Employee 详情可见说明并补充 `description`，申请人可 `WAITING_USER → IN_PROGRESS`。非评论时间线；多轮仍靠字段覆盖/追加。 | **已缓解** |
 | KL-03 | Agent 当前 system token | ~~Agent → Go 使用系统用户账号~~ **已关闭（Phase 8）**：业务路径用户 JWT 透传。 | **已关闭** |
 | KL-04 | Agent JWT / 记忆 | JWT 透传 + thread 归属已做。Checkpointer **已落地**（Agent 库 `opspilot_agent`）。HITL 写确认 **已落地**。V1 保留 HITL，不扩审批。 | **已关闭（记忆/HITL）；V1 只改 Tool 集** |
 
-演示建议：避免把「等待用户」当作 Employee 可闭环路径；完整协作（Support 写 `SUPPORT_NOTE` → Employee `USER_REPLY` → 回处理中）待单独 Enhancement，**当前不新增 API**。
+演示建议：可用「等待用户」最小闭环（`analysis` + 用户补充 `description`）。多轮评论时间线仍属 KL-01，**不新建** `ticket_comments`。
 
 ---
 
